@@ -8,6 +8,6 @@ version: '3'
 
 services:
   backend:
-    image: cxp/cloudbirds/cloudbirds
+    image: cxp/cloudbirds/cloudbirds:latest
     ports:
       - "38060:8080"
