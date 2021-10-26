@@ -1,0 +1,13 @@
+# docker-compose.yml
+# ----------------------------------------------------------------------------
+# Composes Docker containers and volumes to a runnable Spring Boot application
+# ----------------------------------------------------------------------------
+#
+---
+version: '3'
+
+services:
+  backend:
+    image: cxp/cloudbirds/cloudbirds
+    ports:
+      - "38060:8080"
