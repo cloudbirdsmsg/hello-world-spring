@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: cxp-team-cloudbirds
+  name: cnj-hello-backend-spring-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cnj-hello-backend-spring
+  template:
+    metadata:
+      namespace: cxp-team-cloudbirds
+      labels:
+        app: cnj-hello-backend-spring
+      name: cnj-hello-backend-spring
+    spec:
+      containers:
+        - name: cnj-hello-backend-spring
+          image: docker.cloudtrain.aws.msgoat.eu/cxp/cloudbirds/hello-backend-spring:0.0.1-rogaln
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 500m
+              memory: 512Mi
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: regcred
+      tolerations:
+        - effect: NoExecute
+          key: node.kubernetes.io/not-ready
+          operator: Exists
+          tolerationSeconds: 300
+        - effect: NoExecute
+          key: node.kubernetes.io/unreachable
+          operator: Exists
+          tolerationSeconds: 300
+        - effect: NoSchedule
+          key: node.kubernetes.io/memory-pressure
+          operator: Exists
