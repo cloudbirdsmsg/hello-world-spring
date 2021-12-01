@@ -11,7 +11,7 @@ spec:
     - host: cxp.k8s.azure.msgoat.eu
       http:
         paths:
-          - path: /cxp-team-cloudbirds-spring(/|$)(.*)
+          - path: /cxp-team-cloudbirds/hello-world-spring(/|$)(.*)
             pathType: Prefix
             backend:
               service:

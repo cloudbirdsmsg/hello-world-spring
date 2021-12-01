@@ -15,6 +15,15 @@ spec:
         app: cnj-hello-backend-spring
       name: cnj-hello-backend-spring
     spec:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchLabels:
+                    app: cnj-hello-backend-spring
+              weight: 50
       containers:
         - name: cnj-hello-backend-spring
           image: docker.cloudtrain.aws.msgoat.eu/cxp/cloudbirds/hello-backend-spring:0.0.1-rogaln
@@ -30,6 +39,22 @@ spec:
             requests:
               cpu: 500m
               memory: 512Mi
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+            initialDelaySeconds: 40
+            timeoutSeconds: 1
+            periodSeconds: 5
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+            initialDelaySeconds: 30
+            timeoutSeconds: 1
+            periodSeconds: 5
+            failureThreshold: 5
       restartPolicy: Always
       imagePullSecrets:
         - name: regcred
