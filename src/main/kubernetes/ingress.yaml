@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1
+apiVersion:  networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   namespace: cxp-team-cloudbirds
@@ -14,7 +14,5 @@ spec:
           - path: /cxp-team-cloudbirds/hello-world-spring(/|$)(.*)
             pathType: Prefix
             backend:
-              service:
-                name: cnj-hello-backend-spring-service
-                port:
-                  number: 80
+              serviceName: cnj-hello-backend-spring-service
+              servicePort: 80
